@@ -1,0 +1,22 @@
+{
+  "name": "ask-saba-bot",
+  "version": "1.0.0",
+  "description": "Ask saba telegram bot",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "author": "Eyasu",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-status": "^1.6.2",
+    "ioredis": "^5.3.2",
+    "mongoose": "^7.3.1",
+    "nodemon": "^2.0.22",
+    "telegraf": "^3.28.0"
+  }
+}

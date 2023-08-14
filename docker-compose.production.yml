@@ -1,0 +1,43 @@
+# @format
+
+version: "3"
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    restart: always
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    command: pm2-runtime src/app.js
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - bot-network
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - bot-network
+
+  redis:
+    image: redis
+    restart: always
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+
+volumes:
+  mongodb-data:
