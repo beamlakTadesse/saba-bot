@@ -8,14 +8,6 @@ services:
       dockerfile: Dockerfile
       # target: development
     restart: always
-    environment:
-      - TELEGRAM_TOKEN=2109961188:AAHOkKATyIGhMR52u0tK_mqKlEs8VRvznQw
-      - MONGO_URI=localhost:27017/saba_bot
-      - REDIS_HOST=redis://red-cjhikuc1ja0c73d9cpfg
-      - REDIS_PORT=6379
-      - MONGO_USERNAME=SOME_USERNAME
-      - MONGO_PASSWORD=SOME_PASSWORD
-      - SUPER_ADMIN_PHONE_NUMBERS=251923772845
     env_file:
       - .env
     command: node src/app.js
@@ -42,7 +34,6 @@ services:
 
   redis:
     image: redis
-    container_name: saba
     restart: always
     networks:
       - bot-network
