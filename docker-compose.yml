@@ -11,7 +11,7 @@ services:
     environment:
       - TELEGRAM_TOKEN=2109961188:AAHOkKATyIGhMR52u0tK_mqKlEs8VRvznQw
       - MONGO_URI=localhost:27017/saba_bot
-      - REDIS_HOST=redis://red-cjdmk4qvvtos73cono70
+      - REDIS_HOST=redis://red-cjhikuc1ja0c73d9cpfg
       - REDIS_PORT=6379
       - MONGO_USERNAME=SOME_USERNAME
       - MONGO_PASSWORD=SOME_PASSWORD
