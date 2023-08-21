@@ -42,6 +42,7 @@ services:
 
   redis:
     image: redis
+    container_name: saba
     restart: always
     networks:
       - bot-network
