@@ -27,7 +27,7 @@ services:
       - mongodb
       - redis
     networks:
-      - bot-network
+      - default
 
   mongodb:
     image: mongo
@@ -38,13 +38,13 @@ services:
     volumes:
       - mongodb-data:/data/db
     networks:
-      - bot-network
+      - default
 
   redis:
     image: redis
     restart: always
     networks:
-      - bot-network
+      - default
 
 networks:
   bot-network:
