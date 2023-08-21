@@ -5,7 +5,7 @@ const { Telegraf, Markup } = require("telegraf");
 const Stage = require("telegraf/stage");
 const session = require("telegraf/session");
 const Redis = require("ioredis");
-const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
+const redis = new Redis('redis://red-cjdmk4qvvtos73cono70', '6379');
 
 const botToken = process.env.TELEGRAM_TOKEN;
 const bot = new Telegraf(botToken);
