@@ -47,7 +47,6 @@ services:
       - default
 
 networks:
-  bot-network:
 
 volumes:
   mongodb-data:
