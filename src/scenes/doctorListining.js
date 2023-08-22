@@ -33,8 +33,10 @@ doctorListening.hears("Finish", async (ctx) => {
   ctx.session.patientId = -1;
   console.log("doctor");
 
-  console.log(ctx.session.doctorPhoneNumber)
-  console.log( `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`)
+  console.log(ctx.session.doctorPhoneNumber);
+  console.log(
+    `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`
+  );
   axios
     .patch(
       `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`,
@@ -47,10 +49,11 @@ doctorListening.hears("Finish", async (ctx) => {
       axios
         .get("https://saba-api.onrender.com/v1/questions?sent=false")
         .then((res) => {
-          let question = res.results[0];
-          ctx.telegram.sendMessage(
-            doctor.telegramId,
-            `New question from a client with information:\n
+          if (res.results[0]) {
+            let question = res.results[0];
+            ctx.telegram.sendMessage(
+              doctor.telegramId,
+              `New question from a client with information:\n
           Age: ${question.age};\n
           Sex: ${question.sex};\n
           Education level: ${question.educationLevel};\n
@@ -58,20 +61,21 @@ doctorListening.hears("Finish", async (ctx) => {
           With a question about: ${question.questionCategory};\n\n
           And the question is: ${question.question};\n\n
           `
-          );
-          axios
-            .patch(
-              `https://saba-api.onrender.com/v1/questions/${question.id}`,
-              {
-                sent: true,
-              }
-            )
-            .then((re) => {
-              console.log(re);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
+            );
+            axios
+              .patch(
+                `https://saba-api.onrender.com/v1/questions/${question.id}`,
+                {
+                  sent: true,
+                }
+              )
+              .then((re) => {
+                console.log(re);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          }
         })
         .catch((err) => {
           console.log(err);
