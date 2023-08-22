@@ -49,7 +49,7 @@ doctorListening.hears("Finish", async (ctx) => {
       axios
         .get("https://saba-api.onrender.com/v1/questions?sent=false")
         .then((res) => {
-          if (res.results[0]) {
+          if (res.results) {
             let question = res.results[0];
             ctx.telegram.sendMessage(
               doctor.telegramId,

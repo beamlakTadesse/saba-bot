@@ -27,6 +27,8 @@ conversationScene.hears("Finish", async (ctx) => {
     );
     ctx.session.doctor.telegramId = -1;
   }
+  ctx.scene.enter("getQuestionCat");
+
 });
 
 conversationScene.hears("Ask another question", async (ctx) => {
