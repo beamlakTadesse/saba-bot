@@ -9,7 +9,7 @@ services:
       # target: development
     restart: always
     environment:
-      - TELEGRAM_TOKEN=6053964527:AAEmm5xf4exYWy2aN5zGVZ3eMpMOFcvKEl0
+      - TELEGRAM_TOKEN=5836158221:AAFVQc0XAjSxVTM7kuxJZdIVNL2rHSHXYLQ
       - MONGO_URI=mongodb
       - REDIS_HOST=redis
       - REDIS_PORT=6379

@@ -89,7 +89,7 @@ doctorListening.on("text", async (ctx) => {
   //     ctx.reply("You don't have any clients yet");
   //     return;
   //   }
-  console.log("doctor");
+  console.log("doctor response");
 
   console.log(ctx.session.patientId);
   if (ctx.session.patientId) {
