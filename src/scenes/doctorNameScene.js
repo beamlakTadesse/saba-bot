@@ -15,8 +15,11 @@ doctorNameScene.on("text", async (ctx) => {
   // Save the doctor's name in the session
   ctx.session.doctorName = doctorName;
   ctx.session.doctorId = ctx.from.id;
+  console.log(ctx.session.doctorName)
   // Move to the next scene to collect the phone number
   ctx.scene.enter("doctorPhoneNumber");
+  console.log("leave")
+
 });
 
 module.exports = doctorNameScene;
