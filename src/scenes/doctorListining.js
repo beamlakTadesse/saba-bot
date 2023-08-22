@@ -94,6 +94,7 @@ doctorListening.on("text", async (ctx) => {
   //     return;
   //   }
   console.log("doctor response");
+  console.log(ctx.message.from);
 
   console.log(ctx.session.patientId);
   if (ctx.session.patientId) {
