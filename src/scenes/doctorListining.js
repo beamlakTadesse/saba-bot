@@ -33,10 +33,11 @@ doctorListening.hears("Finish", async (ctx) => {
   ctx.session.patientId = -1;
   console.log("doctor");
 
-  console.log(ctx.session.doctor);
+  console.log(ctx.session.doctorPhoneNumber)
+  console.log( `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`)
   axios
     .patch(
-      `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctor.phone}`,
+      `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`,
       {
         status: "Active",
         patientId: -1,

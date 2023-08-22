@@ -2,9 +2,9 @@
 
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-const Redis = require("ioredis");
+// const Redis = require("ioredis");
 const axios = require("axios");
-const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
+// const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 const doctorPhoneNumberScene = new BaseScene("doctorPhoneNumber");
 const apiUrl = "https://saba-api.onrender.com/v1/doctors";
 doctorPhoneNumberScene.enter((ctx) => {
@@ -64,11 +64,24 @@ doctorPhoneNumberScene.hears("Yes", async (ctx) => {
 // Handle user response for not deleting existing doctor
 doctorPhoneNumberScene.hears("No", async (ctx) => {
   await ctx.reply("No changes were made. Existing doctor details remain.");
-
-  // Clear the doctor-related session data
-  delete ctx.session.doctorName;
-  delete ctx.session.doctorPhoneNumber;
-
+  var postData = {
+    status: "Active",
+    alive: true,
+  };
+  console.log(
+    `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`
+  );
+  axios
+    .patch(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
+    .then((response) => {
+      ctx.reply(`Wellcome doctor ${response.data.name}`);
+      ctx.scene.enter("doctorListening");
+    })
+    .catch((error) => {
+      ctx.reply(`Sorry something went wrong try again`);
+      // Handle any errors that occurred during the request
+      console.error("Error:", error.message);
+    });
   ctx.scene.enter("doctorListening");
 });
 
@@ -94,18 +107,18 @@ async function saveDoctorDetails(ctx) {
   }
 }
 
-async function saveNewDoctor(ctx, doctorKey, phone = null) {
-  await redis.set(`${doctorKey}:phone`, phone ? phone : ctx.message.text);
-  await redis.set(`${doctorKey}:name`, ctx.session.doctorName);
-  await redis.set(`${doctorKey}:availability`, true);
+// async function saveNewDoctor(ctx, doctorKey, phone = null) {
+//   await redis.set(`${doctorKey}:phone`, phone ? phone : ctx.message.text);
+//   await redis.set(`${doctorKey}:name`, ctx.session.doctorName);
+//   await redis.set(`${doctorKey}:availability`, true);
 
-  // Reset session variables
-  ctx.session.doctorName = undefined;
+//   // Reset session variables
+//   ctx.session.doctorName = undefined;
 
-  await ctx.reply("Doctor details saved successfully.");
+//   await ctx.reply("Doctor details saved successfully.");
 
-  ctx.scene.enter("doctorListening");
-}
+//   ctx.scene.enter("doctorListening");
+// }
 
 // doctorPhoneNumberScene.on("text", async (ctx) => {
 //   const doctorPhoneNumber = ctx.message.text;
@@ -128,9 +141,10 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
     // console.log(superAdminPhoneNumbers, userPhoneNumber);
     if (superAdminPhoneNumbers.includes(userPhoneNumber)) {
       // User is a Super Admin
-      return ctx.scene.enter("adminHome");
+      // return ctx.scene.enter("adminHome");
     } else {
       console.log("call api and check");
+      console.log(ctx.session.doctorPhoneNumber);
 
       const pathVariable1 = userPhoneNumber;
 
@@ -154,14 +168,14 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
           var doctorName = ctx.session.doctorName;
           var postData = {
             name: doctorName,
-            phone: userPhoneNumber,
+            phone: ctx.session.doctorPhoneNumber,
             role: "Doctor",
             status: "Active",
             alive: true,
             telegramId: ctx.session.doctorId,
           };
           axios
-            .post(apiUrl, postData)
+            .post(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
             .then((response) => {
               ctx.reply(`Wellcome doctor ${response.data.name}`);
               ctx.scene.enter("doctorListening");

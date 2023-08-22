@@ -2,8 +2,8 @@
 
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-const Redis = require("ioredis");
-const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
+// const Redis = require("ioredis");
+// const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 
 // Scene for collecting user's education level
 const getEducationLevelScene = new BaseScene("getEducationLevel");
@@ -51,10 +51,10 @@ getEducationLevelScene.hears(/^(.*)$/, async (ctx) => {
 
   console.log(redisData);
 
-  await redis.set(`${userKey}:role`, redisData.role);
-  await redis.set(`${userKey}:age`, redisData.age);
-  await redis.set(`${userKey}:language`, redisData.language);
-  await redis.set(`${userKey}:educationLevel`, redisData.educationLevel);
+  // await redis.set(`${userKey}:role`, redisData.role);
+  // await redis.set(`${userKey}:age`, redisData.age);
+  // await redis.set(`${userKey}:language`, redisData.language);
+  // await redis.set(`${userKey}:educationLevel`, redisData.educationLevel);
   // leave the scene
   return ctx.scene.enter("getQuestionCategory");
 });

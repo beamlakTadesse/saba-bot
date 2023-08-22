@@ -3,8 +3,8 @@ const { default: axios } = require("axios");
 
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-const Redis = require("ioredis");
-const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
+// const Redis = require("ioredis");
+// const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 
 const conversationScene = new BaseScene("conversation");
 
