@@ -139,10 +139,10 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
     const superAdminPhoneNumbers =
       process.env.SUPER_ADMIN_PHONE_NUMBERS.split(",");
     // console.log(superAdminPhoneNumbers, userPhoneNumber);
-    if (superAdminPhoneNumbers.includes(userPhoneNumber)) {
-      // User is a Super Admin
-      // return ctx.scene.enter("adminHome");
-    } else {
+    // if (superAdminPhoneNumbers.includes(userPhoneNumber)) {
+    //   // User is a Super Admin
+    //   // return ctx.scene.enter("adminHome");
+    // } else {
       console.log("call api and check");
       console.log(ctx.session.doctorPhoneNumber);
 
@@ -186,7 +186,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
               console.error("Error:", error.message);
             });
         });
-    }
+    // }
   } else {
     await ctx.reply("Please provide your phone number to continue.");
   }
