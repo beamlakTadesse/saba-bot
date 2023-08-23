@@ -14,8 +14,8 @@ doctorListening.enter(async (ctx) => {
       `https://saba-api.onrender.com/v1/doctors?telegramId=${ctx.session.doctorId}`
     )
     .then((response) => {
-      console.log(response.data.results[4]);
-      ctx.session.patientId = response.data.results[4].patientId;
+      console.log(response.data.results[0]);
+      ctx.session.patientId = response.data.results[0].patientId;
     })
     .catch((error) => {
       // ctx.reply(`Sorry something went wrong try again`);
@@ -94,10 +94,10 @@ doctorListening.on("text", async (ctx) => {
   //     return;
   //   }
   console.log("doctor response");
-  console.log(ctx.session);
+  console.log(ctx.message.from);
 
   console.log(ctx.session.patientId);
-  if (ctx.session.patientId) {
+  if (ctx.session.patientId != -1) {
     try {
       ctx.telegram.sendMessage(
         ctx.session.patientId,
@@ -107,6 +107,8 @@ doctorListening.on("text", async (ctx) => {
       // Handle any errors that occurred during the request
       console.error("Error:", error);
     }
+  }else{
+    ctx.reply("patient issue")
   }
 
   ctx.reply("Your message has been sent to the Consultant", {
