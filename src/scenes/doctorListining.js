@@ -14,8 +14,13 @@ doctorListening.enter(async (ctx) => {
       `https://saba-api.onrender.com/v1/doctors?telegramId=${ctx.session.doctorId}`
     )
     .then((response) => {
+      console.log(response)
+      console.log(ctx.session.patientId )
+
       console.log(response.data.results[0]);
       ctx.session.patientId = response.data.results[0].patientId;
+      console.log(ctx.session.patientId )
+
     })
     .catch((error) => {
       // ctx.reply(`Sorry something went wrong try again`);
