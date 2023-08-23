@@ -82,7 +82,7 @@ doctorPhoneNumberScene.hears("No", async (ctx) => {
       // Handle any errors that occurred during the request
       console.error("Error:", error.message);
     });
-  ctx.scene.enter("doctorListening");
+  // ctx.scene.enter("doctorListening");
 });
 
 async function saveDoctorDetails(ctx) {

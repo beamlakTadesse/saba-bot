@@ -97,7 +97,7 @@ getQuestion.on("text", async (ctx) => {
             ctx.session.doctor = doctor;
             doctor.patientId = ctx.from.id;
             console.log("patient id log.....",ctx.session.doctor);
-
+            ctx.session.patientId = ctx.from.id;
             ctx.telegram.sendMessage(
               doctor.telegramId,
               `New question from a client with information:\n

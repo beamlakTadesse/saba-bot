@@ -30,13 +30,13 @@ doctorListening.hears("Finish", async (ctx) => {
 
     "The Consultant has ended the conversation. \n If you wanna learn more \n⬇️download our app on \nhttps://play.google.com/store/apps/details?id=org.saba.saba&pli=1 \nAnd stay tuned on \n📢 Saba Health channel https://t.me/sabahealth \n👥 Saba Health group https://t.me/sabatheapplication"
   );
-  ctx.session.patientId = -1;
+  // ctx.session.patientId = -1;
   console.log("doctor");
 
-  console.log(ctx.session.doctor);
+  console.log(ctx.session);
   axios
     .patch(
-      `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctor.phone}`,
+      `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`,
       {
         status: "Active",
         patientId: -1,
@@ -46,31 +46,36 @@ doctorListening.hears("Finish", async (ctx) => {
       axios
         .get("https://saba-api.onrender.com/v1/questions?sent=false")
         .then((res) => {
-          let question = res.results[0];
-          ctx.telegram.sendMessage(
-            doctor.telegramId,
-            `New question from a client with information:\n
-          Age: ${question.age};\n
-          Sex: ${question.sex};\n
-          Education level: ${question.educationLevel};\n
-          language: ${question.language};\n
-          With a question about: ${question.questionCategory};\n\n
-          And the question is: ${question.question};\n\n
-          `
-          );
-          axios
-            .patch(
-              `https://saba-api.onrender.com/v1/questions/${question.id}`,
-              {
-                sent: true,
-              }
-            )
-            .then((re) => {
-              console.log(re);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
+          console.log(res.results)
+          if(res.results){
+            let question = res.results[0];
+            ctx.session.patientId = question.patientId;
+            ctx.telegram.sendMessage(
+              doctor.telegramId,
+              `New question from a client with information:\n
+            Age: ${question.age};\n
+            Sex: ${question.sex};\n
+            Education level: ${question.educationLevel};\n
+            language: ${question.language};\n
+            With a question about: ${question.questionCategory};\n\n
+            And the question is: ${question.question};\n\n
+            `
+            );
+            axios
+              .patch(
+                `https://saba-api.onrender.com/v1/questions/${question.id}`,
+                {
+                  sent: true,
+                }
+              )
+              .then((re) => {
+                console.log(re);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          }
+         
         })
         .catch((err) => {
           console.log(err);
