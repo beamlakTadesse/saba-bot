@@ -94,9 +94,9 @@ doctorListening.on("text", async (ctx) => {
   //     return;
   //   }
   console.log("doctor response");
-  console.log(ctx.message);
+  console.log(ctx.session);
 
-  ctx.session.patientId = ctx.from.id;
+  console.log(ctx.session.patientId);
   if (ctx.session.patientId) {
     try {
       ctx.telegram.sendMessage(

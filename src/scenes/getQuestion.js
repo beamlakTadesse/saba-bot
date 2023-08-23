@@ -66,7 +66,7 @@ getQuestion.hears(["⬅️ To Main Menu"], async (ctx) => {
 getQuestion.on("text", async (ctx) => {
   ctx.session.question = ctx.message.text;
   ctx.session.patientId = ctx.from.id;
-  console.log(ctx.session.patientId);
+  console.log("patient id log.....",ctx.session.patientId);
 
   let df = false;
   let askedAlready = false;
