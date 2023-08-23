@@ -67,8 +67,8 @@ getQuestion.on("text", async (ctx) => {
   ctx.session.question = ctx.message.text;
   ctx.session.patientId = ctx.from.id;
   console.log("patient id log.....",ctx.session.patientId);
-  ctx.session.doctor = doctor;
-  doctor.patientId = ctx.from.id;
+
+
   let df = false;
   let askedAlready = false;
   // doctors.forEach((doctor) => {
@@ -94,9 +94,9 @@ getQuestion.on("text", async (ctx) => {
             patientId: ctx.from.id,
           })
           .then((response) => {
-            // doctor = { ...doctor, patientId: ctx.from.id };
             ctx.session.doctor = doctor;
             doctor.patientId = ctx.from.id;
+            console.log("patient id log.....",ctx.session.doctor);
 
             ctx.telegram.sendMessage(
               doctor.telegramId,
