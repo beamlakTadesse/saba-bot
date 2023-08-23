@@ -14,13 +14,8 @@ doctorListening.enter(async (ctx) => {
       `https://saba-api.onrender.com/v1/doctors?telegramId=${ctx.session.doctorId}`
     )
     .then((response) => {
-      console.log(response)
-      console.log(ctx.session.patientId )
-
-      console.log(response.data.results[0]);
-      ctx.session.patientId = response.data.results[0].patientId;
-      console.log(ctx.session.patientId )
-
+      console.log(response.data.results[4]);
+      ctx.session.patientId = response.data.results[4].patientId;
     })
     .catch((error) => {
       // ctx.reply(`Sorry something went wrong try again`);
@@ -38,13 +33,10 @@ doctorListening.hears("Finish", async (ctx) => {
   ctx.session.patientId = -1;
   console.log("doctor");
 
-  console.log(ctx.session.doctorPhoneNumber);
-  console.log(
-    `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`
-  );
+  console.log(ctx.session.doctor);
   axios
     .patch(
-      `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`,
+      `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctor.phone}`,
       {
         status: "Active",
         patientId: -1,
@@ -54,11 +46,10 @@ doctorListening.hears("Finish", async (ctx) => {
       axios
         .get("https://saba-api.onrender.com/v1/questions?sent=false")
         .then((res) => {
-          if (res.results) {
-            let question = res.results[0];
-            ctx.telegram.sendMessage(
-              doctor.telegramId,
-              `New question from a client with information:\n
+          let question = res.results[0];
+          ctx.telegram.sendMessage(
+            doctor.telegramId,
+            `New question from a client with information:\n
           Age: ${question.age};\n
           Sex: ${question.sex};\n
           Education level: ${question.educationLevel};\n
@@ -66,21 +57,20 @@ doctorListening.hears("Finish", async (ctx) => {
           With a question about: ${question.questionCategory};\n\n
           And the question is: ${question.question};\n\n
           `
-            );
-            axios
-              .patch(
-                `https://saba-api.onrender.com/v1/questions/${question.id}`,
-                {
-                  sent: true,
-                }
-              )
-              .then((re) => {
-                console.log(re);
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          }
+          );
+          axios
+            .patch(
+              `https://saba-api.onrender.com/v1/questions/${question.id}`,
+              {
+                sent: true,
+              }
+            )
+            .then((re) => {
+              console.log(re);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -98,8 +88,7 @@ doctorListening.on("text", async (ctx) => {
   //     ctx.reply("You don't have any clients yet");
   //     return;
   //   }
-  console.log("doctor response");
-  console.log(ctx.message.from);
+  console.log("doctor");
 
   console.log(ctx.session.patientId);
   if (ctx.session.patientId != -1) {
@@ -112,8 +101,6 @@ doctorListening.on("text", async (ctx) => {
       // Handle any errors that occurred during the request
       console.error("Error:", error);
     }
-  }else{
-    ctx.reply("patient issue")
   }
 
   ctx.reply("Your message has been sent to the Consultant", {
