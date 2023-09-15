@@ -3,7 +3,7 @@
 const { default: axios } = require("axios");
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-const apiUrl = "https://saba-api.onrender.com/v1/doctors";
+const apiUrl = " http://5.75.155.116:8000/v1/doctors";
 // Scene for collecting user's age
 const getQuestion = new BaseScene("getQuestion");
 
@@ -83,13 +83,13 @@ getQuestion.on("text", async (ctx) => {
   // });
 
   axios
-    .get(`https://saba-api.onrender.com/v1/doctors?alive=true&status=Active`)
+    .get(` http://5.75.155.116:8000/v1/doctors?alive=true&status=Active`)
     .then((response) => {
       let doctor = response.data.results[0];
 
       if (doctor) {
         axios
-          .patch(`https://saba-api.onrender.com/v1/doctors/${doctor.phone}`, {
+          .patch(` http://5.75.155.116:8000/v1/doctors/${doctor.phone}`, {
             status: "Busy",
             patientId: ctx.from.id,
           })
@@ -116,7 +116,7 @@ getQuestion.on("text", async (ctx) => {
             console.error("Error:", error.message);
           });
         axios
-          .post(`https://saba-api.onrender.com/v1/questions`, {
+          .post(` http://5.75.155.116:8000/v1/questions`, {
             question: ctx.session.question,
             questionCategory: ctx.session.questionCat,
             sex: ctx.session.sex,
@@ -136,7 +136,7 @@ getQuestion.on("text", async (ctx) => {
         ctx.reply("A doctor will be with you in a moment");
       } else {
         axios
-          .post(`https://saba-api.onrender.com/v1/questions`, {
+          .post(` http://5.75.155.116:8000/v1/questions`, {
             question: ctx.session.question,
             questionCategory: ctx.session.questionCat,
             sex: ctx.session.sex,

@@ -83,12 +83,12 @@ conversationScene.on("text", async (ctx) => {
     );
   } else {
     axios
-      .get(`https://saba-api.onrender.com/v1/doctors?alive=true&status=Active`)
+      .get(` http://5.75.155.116:8000/v1/doctors?alive=true&status=Active`)
       .then((response) => {
         let doctor = response.data.results[0];
         if (doctor) {
           axios
-            .patch(`https://saba-api.onrender.com/v1/doctors/${doctor.phone}`, {
+            .patch(` http://5.75.155.116:8000/v1/doctors/${doctor.phone}`, {
               status: "Busy",
             })
             .then((response) => {
@@ -107,7 +107,7 @@ conversationScene.on("text", async (ctx) => {
         } else {
           ctx.reply(`Well get back to you with answers in a while.`);
           axios
-            .post(`https://saba-api.onrender.com/v1/questions`, {
+            .post(` http://5.75.155.116:8000/v1/questions`, {
               question: ctx.session.question,
               questionCategory: ctx.session.questionCat,
               sex: ctx.session.sex,

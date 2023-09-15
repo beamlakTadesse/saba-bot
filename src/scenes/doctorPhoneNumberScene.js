@@ -6,7 +6,7 @@ const BaseScene = require("telegraf/scenes/base");
 const axios = require("axios");
 // const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 const doctorPhoneNumberScene = new BaseScene("doctorPhoneNumber");
-const apiUrl = "https://saba-api.onrender.com/v1/doctors";
+const apiUrl = " http://5.75.155.116:8000/v1/doctors";
 doctorPhoneNumberScene.enter((ctx) => {
   // ctx.reply("Please enter the doctor's phone number:");
   ctx.reply(
@@ -69,7 +69,7 @@ doctorPhoneNumberScene.hears("No", async (ctx) => {
     alive: true,
   };
   console.log(
-    `https://saba-api.onrender.com/v1/doctors/${ctx.session.doctorPhoneNumber}`
+    ` http://5.75.155.116:8000/v1/doctors/${ctx.session.doctorPhoneNumber}`
   );
   axios
     .patch(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
