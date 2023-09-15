@@ -30,7 +30,7 @@ contactScene.enter((ctx) => {
 
 contactScene.on("contact", async (ctx) => {
   if(ctx.message.contact){
-  const userPhoneNumber = ctx.message.contact?.phone_number;
+  const userPhoneNumber = ctx.message.contact.phone_number;
   if (userPhoneNumber) {
     // Check if the user is a Super Admin
     const superAdminPhoneNumbers =
