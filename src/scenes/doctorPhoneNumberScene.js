@@ -131,7 +131,7 @@ async function saveDoctorDetails(ctx) {
 // });
 
 doctorPhoneNumberScene.on("contact", async (ctx) => {
-  const userPhoneNumber = ctx.message.contact?.phone_number;
+  const userPhoneNumber = ctx.message.contact.phone_number;
   ctx.session.doctorPhoneNumber = userPhoneNumber;
   console.log(userPhoneNumber);
   if (userPhoneNumber) {
