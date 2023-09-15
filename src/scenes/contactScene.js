@@ -29,6 +29,7 @@ contactScene.enter((ctx) => {
 });
 
 contactScene.on("contact", async (ctx) => {
+  if(ctx.message.contact){
   const userPhoneNumber = ctx.message.contact?.phone_number;
   if (userPhoneNumber) {
     // Check if the user is a Super Admin
@@ -74,7 +75,7 @@ contactScene.on("contact", async (ctx) => {
     
   } else {
     await ctx.reply("Please provide your phone number to continue.");
-  }
+  }}
 });
 
 contactScene.hears("Add Doctor", async (ctx) => {
