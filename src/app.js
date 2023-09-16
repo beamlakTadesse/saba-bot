@@ -74,5 +74,8 @@ bot.start(async (ctx) => {
     await ctx.scene.enter("role");
   }
 });
-
+bot.catch((err) => {
+  console.error('Error:', err);
+  // Respond to the user with an error message
+});
 bot.launch();
