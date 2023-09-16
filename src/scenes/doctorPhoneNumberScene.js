@@ -73,27 +73,9 @@ doctorPhoneNumberScene.hears("No", async (ctx) => {
       ctx.scene.enter("doctorListening");
     })
     .catch((error) => {
-      var doctorName = ctx.session.doctorName;
-      var postData = {
-        name: doctorName,
-        phone: ctx.session.doctorPhoneNumber,
-        role: "Doctor",
-        status: "Active",
-        alive: true,
-        telegramId: ctx.session.doctorId,
-      };
-      axios
-        .post(apiUrl , postData)
-        .then((response) => {
-          ctx.reply(`Wellcome doctor ${response.data.name}`);
-          ctx.scene.enter("doctorListening");
-        })
-        .catch((error) => {
-          ctx.reply(`Sorry something went wrong try again`);
-          // Handle any errors that occurred during the request
-          console.error("Error:", error.message);
-        });
-     
+      
+      ctx.reply(`Sorry something went wrong try again`);
+      // Handle any errors that occurred during the request
       console.error("Error:", error.message);
     });
   // ctx.scene.enter("doctorListening");
@@ -121,28 +103,7 @@ async function saveDoctorDetails(ctx) {
   }
 }
 
-// async function saveNewDoctor(ctx, doctorKey, phone = null) {
-//   await redis.set(`${doctorKey}:phone`, phone ? phone : ctx.message.text);
-//   await redis.set(`${doctorKey}:name`, ctx.session.doctorName);
-//   await redis.set(`${doctorKey}:availability`, true);
 
-//   // Reset session variables
-//   ctx.session.doctorName = undefined;
-
-//   await ctx.reply("Doctor details saved successfully.");
-
-//   ctx.scene.enter("doctorListening");
-// }
-
-// doctorPhoneNumberScene.on("text", async (ctx) => {
-//   const doctorPhoneNumber = ctx.message.text;
-
-//   // Save the doctor's phone number in the session
-//   ctx.session.doctorPhoneNumber = doctorPhoneNumber;
-
-//   await saveDoctorDetails(ctx);
-//   ctx.scene.enter("doctorListening");
-// });
 
 doctorPhoneNumberScene.on("contact", async (ctx) => {
   const userPhoneNumber = ctx.message.contact.phone_number;
@@ -152,11 +113,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
     // Check if the user is a Super Admin
     const superAdminPhoneNumbers =
       process.env.SUPER_ADMIN_PHONE_NUMBERS.split(",");
-    // console.log(superAdminPhoneNumbers, userPhoneNumber);
-    // if (superAdminPhoneNumbers.includes(userPhoneNumber)) {
-    //   // User is a Super Admin
-    //   // return ctx.scene.enter("adminHome");
-    // } else {
+    
       console.log("call api and check");
       console.log(ctx.session.doctorPhoneNumber);
 
@@ -189,7 +146,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
             telegramId: ctx.session.doctorId,
           };
           axios
-            .post(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
+            .post(apiUrl , postData)
             .then((response) => {
               ctx.reply(`Wellcome doctor ${response.data.name}`);
               ctx.scene.enter("doctorListening");
