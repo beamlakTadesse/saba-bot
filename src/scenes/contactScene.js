@@ -19,6 +19,10 @@ contactScene.enter((ctx) => {
               text: "Request Contact",
               request_contact: true,
             },
+            {
+              text: "Request Contact",
+              request_contact: true,
+            },
           ],
         ],
         resize_keyboard: true,

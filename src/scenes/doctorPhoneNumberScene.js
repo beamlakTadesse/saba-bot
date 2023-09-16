@@ -2,9 +2,7 @@
 
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-// const Redis = require("ioredis");
 const axios = require("axios");
-// const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 const doctorPhoneNumberScene = new BaseScene("doctorPhoneNumber");
 const apiUrl = " http://5.75.155.116:8000/v1/doctors";
 doctorPhoneNumberScene.enter((ctx) => {
@@ -31,7 +29,6 @@ doctorPhoneNumberScene.enter((ctx) => {
 // Handle user response for deleting existing doctor and adding a new one
 doctorPhoneNumberScene.hears("Yes", async (ctx) => {
   const doctorKey = ctx.session.doctorKey;
-  await redis.del(doctorKey); // Delete existing doctor entry
   var doctorName = ctx.session.doctorName;
   console.log(ctx);
   var postData = {
@@ -53,8 +50,6 @@ doctorPhoneNumberScene.hears("Yes", async (ctx) => {
       // Handle any errors that occurred during the request
       console.error("Error:", error.message);
     });
-  // Proceed with saving the new doctor details
-  await saveNewDoctor(ctx, doctorKey, ctx.session.doctorPhoneNumber);
 
   // Clear the doctor-related session data
   delete ctx.session.doctorName;
