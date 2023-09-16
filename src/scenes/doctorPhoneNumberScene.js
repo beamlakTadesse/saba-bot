@@ -73,8 +73,27 @@ doctorPhoneNumberScene.hears("No", async (ctx) => {
       ctx.scene.enter("doctorListening");
     })
     .catch((error) => {
-      ctx.reply(`Sorry something went wrong try again`);
-      // Handle any errors that occurred during the request
+      var doctorName = ctx.session.doctorName;
+      var postData = {
+        name: doctorName,
+        phone: ctx.session.doctorPhoneNumber,
+        role: "Doctor",
+        status: "Active",
+        alive: true,
+        telegramId: ctx.session.doctorId,
+      };
+      axios
+        .post(apiUrl , postData)
+        .then((response) => {
+          ctx.reply(`Wellcome doctor ${response.data.name}`);
+          ctx.scene.enter("doctorListening");
+        })
+        .catch((error) => {
+          ctx.reply(`Sorry something went wrong try again`);
+          // Handle any errors that occurred during the request
+          console.error("Error:", error.message);
+        });
+     
       console.error("Error:", error.message);
     });
   // ctx.scene.enter("doctorListening");
