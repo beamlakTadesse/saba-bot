@@ -105,7 +105,7 @@ conversationScene.on("text", async (ctx) => {
               console.error("Error:", error.message);
             });
         } else {
-          ctx.reply(`Well get back to you with answers in a while.`);
+          ctx.reply(`We'll get back to you with answers in a while.`);
           axios
             .post(` http://5.75.155.116:8000/v1/questions`, {
               question: ctx.session.question,

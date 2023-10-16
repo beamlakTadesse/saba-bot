@@ -2,8 +2,7 @@
 
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-// const Redis = require("ioredis");
-// const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
+
 
 const contactScene = new BaseScene("contact");
 
@@ -39,10 +38,8 @@ contactScene.on("contact", async (ctx) => {
     // Check if the user is a Super Admin
     const superAdminPhoneNumbers =
       process.env.SUPER_ADMIN_PHONE_NUMBERS.split(",");
-    // console.log(superAdminPhoneNumbers, userPhoneNumber);
     if (superAdminPhoneNumbers.includes(userPhoneNumber)) {
-      // User is a Super Admin
-      // return ctx.scene.enter("adminHome");
+    
     } else {
       // User is not a Super Admin
       const userKey = `user:${userPhoneNumber}`;
@@ -50,31 +47,9 @@ contactScene.on("contact", async (ctx) => {
       // console.log(redis);
       const userExists = await redis.exists(userKey);
       const doctorExists = await redis.exists(doctorKey);
-      // console.log(userExists);
-      // console.log(userExists);
-      // console.log(doctorExists);
-      // if (userExists) {
-      //   ctx.session.phoneNumber = userPhoneNumber;
-      //   ctx.session.role = await redis.get(`${userKey}:role`);
-      //   ctx.session.age = await redis.get(`${userKey}:age`);
-      //   ctx.session.language = await redis.get(`${userKey}:language`);
-      //   ctx.session.educationLevel = await redis.get(
-      //     `${userKey}:educationLevel`
-      //   );
-
-      //   await ctx.reply(`Welcome back user, ${userPhoneNumber}!`);
-      // } else if (doctorExists) {
-      //   ctx.session.phoneNumber = userPhoneNumber;
-      //   ctx.session.name = await redis.get(`${doctorExists}:name`);
-      //   ctx.session.availability = await redis.get(
-      //     `${doctorExists}:availability`
-      //   );
-
-      //   await ctx.reply(`Welcome back Dr ${ctx.session.name}!`);
-      // } else {
+     
         console.log(ctx.session)
         ctx.session.phoneNumber = userPhoneNumber;
-        // return ctx.scene.enter("role");
       }
     
   } else {

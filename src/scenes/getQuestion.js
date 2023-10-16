@@ -83,7 +83,7 @@ getQuestion.on("text", async (ctx) => {
   // });
 
   axios
-    .get(` http://5.75.155.116:8000/v1/doctors?alive=true&status=Active`)
+    .get(` http://5.75.155.116:8000/v1/doctors?alive=true&status=Active&language=${ctx.session.language}`)
     .then((response) => {
       let doctor = response.data.results[0];
 
@@ -96,7 +96,6 @@ getQuestion.on("text", async (ctx) => {
           .then((response) => {
             ctx.session.doctor = doctor;
             doctor.patientId = ctx.from.id;
-            console.log("patient id log.....",ctx.session.doctor);
             ctx.session.patientId = ctx.from.id;
             ctx.telegram.sendMessage(
               doctor.telegramId,

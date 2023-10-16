@@ -8,7 +8,7 @@ const BaseScene = require("telegraf/scenes/base");
 const doctorListening = new BaseScene("doctorListening");
 
 doctorListening.enter(async (ctx) => {
-  ctx.reply("Watting for a question...");
+  ctx.reply("Waiting for a question...");
   axios
     .get(
       ` http://5.75.155.116:8000/v1/doctors?telegramId=${ctx.session.doctorId}`

@@ -59,13 +59,7 @@ bot.start(async (ctx) => {
 
   // console.log(phoneNumber, role);
   if (phoneNumber && role) {
-    // const userKey = `user:${phoneNumber}`;
-    // const userExists = await redis.exists(userKey);
-    // const storedRole = await redis.get(`${userKey}:role`);
-    // const storedAge = await redis.get(`${userKey}:age`);
-    // const storedLanguage = await redis.get(`${userKey}:language`);
-    // const storedEducationLevel = await redis.get(`${userKey}:educationLevel`);
-
+   
     await ctx.reply(`Welcome back!`);
 
     // Add Doctor or Patient logic here
