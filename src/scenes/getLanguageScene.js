@@ -8,14 +8,27 @@ const getLanguageScene = new BaseScene("getLanguage");
 
 getLanguageScene.enter((ctx) => {
   ctx.reply("Please select your preferred language:", {
-    reply_markup: Markup.keyboard([["English", "Amharic"]])
+    reply_markup: Markup.keyboard([["English", "Amharic","Oromifa","Tigrgna"]])
       .resize()
       .oneTime(),
   });
 });
 
-getLanguageScene.hears(/^(english|amharic)$/i, async (ctx) => {
+getLanguageScene.hears(/^(english|amharic|oromifa|tigrgna)$/i, async (ctx) => {
   const language = ctx.match[1].toLowerCase();
+  if(language=="english"){
+    ctx.i18n.locale('en');
+  }
+  else if(language=="amharic"){
+    ctx.i18n.locale('am');
+  }else if(language=="oromifa"){
+    ctx.i18n.locale('or');
+  }
+  else if(language=="tigrgna"){
+    ctx.i18n.locale('tr');
+  }else{
+    ctx.i18n.locale('en');
+  }
 
   // Save the language in the session
   ctx.session.language = language;

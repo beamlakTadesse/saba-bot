@@ -8,7 +8,7 @@ const apiUrl = " http://5.75.155.116:8000/v1/doctors";
 doctorPhoneNumberScene.enter((ctx) => {
   // ctx.reply("Please enter the doctor's phone number:");
   ctx.reply(
-    "Please share your contact so that we can contact you in case of any questions.",
+    "Please share your contact so that we can confirm you are a registered doctor.",
     {
       reply_markup: {
         keyboard: [
@@ -62,10 +62,9 @@ doctorPhoneNumberScene.hears("No", async (ctx) => {
   var postData = {
     status: "Active",
     alive: true,
+    telegramId: ctx.session.doctorId,
   };
-  console.log(
-    ` http://5.75.155.116:8000/v1/doctors/${ctx.session.doctorPhoneNumber}`
-  );
+
   axios
     .patch(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
     .then((response) => {
@@ -88,7 +87,7 @@ async function saveDoctorDetails(ctx) {
   if (existingDoctor) {
     // Doctor with the same key already exists
     await ctx.reply(
-      "Doctor already exists. Do you want to delete the existing one and add a new doctor?",
+      "Wellcome Doctor. Do you want to update your profile?",
       {
         reply_markup: Markup.keyboard([["Yes", "No"]])
           .resize()
@@ -125,7 +124,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
         .get(`${apiUrl}${path}`)
         .then((response) => {
           ctx.reply(
-            `Doctor with this phone number already found do you want to update it?`,
+            ``,
             {
               reply_markup: {
                 keyboard: [["Yes"], ["No"]],
@@ -136,26 +135,11 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
           );
         })
         .catch((error) => {
-          var doctorName = ctx.session.doctorName;
-          var postData = {
-            name: doctorName,
-            phone: ctx.session.doctorPhoneNumber,
-            role: "Doctor",
-            status: "Active",
-            alive: true,
-            telegramId: ctx.session.doctorId,
-          };
-          axios
-            .post(apiUrl , postData)
-            .then((response) => {
-              ctx.reply(`Wellcome doctor ${response.data.name}`);
-              ctx.scene.enter("doctorListening");
-            })
-            .catch((error) => {
-              ctx.reply(`Sorry something went wrong try again`);
+       
+              ctx.reply(`Sorry you have to be registerd member to access this bot as a doctor.`);
               // Handle any errors that occurred during the request
               console.error("Error:", error.message);
-            });
+          
         });
     // }
   } else {

@@ -4,12 +4,21 @@ require("dotenv").config();
 const { Telegraf, Markup } = require("telegraf");
 const Stage = require("telegraf/stage");
 const session = require("telegraf/session");
+const i18n = require('telegraf-i18n');
+const path = require('path');
+
 // const Redis = require("ioredis");
 // const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 
 const botToken = process.env.TELEGRAM_TOKEN;
 const bot = new Telegraf(botToken);
 
+const i18nMiddleware = new i18n({
+  useSession: true,
+  directory: path.resolve(__dirname, 'localization'),
+  defaultLanguage: 'en', // Default language
+});
+bot.use(i18nMiddleware.middleware());
 // Create a new stage
 const stage = new Stage();
 
@@ -18,6 +27,7 @@ bot.use(session());
 
 // Register the stage middleware
 bot.use(stage.middleware());
+
 
 // Import scenes
 const contactScene = require("./scenes/contactScene");

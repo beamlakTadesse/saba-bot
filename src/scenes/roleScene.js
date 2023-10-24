@@ -7,7 +7,7 @@ const BaseScene = require("telegraf/scenes/base");
 const roleScene = new BaseScene("role");
 
 roleScene.enter((ctx) => {
-  ctx.reply("Are you a Doctor or a Patient?", {
+  ctx.reply(ctx.i18n.t("Are you a Doctor or a Patient?"), {
     reply_markup: Markup.keyboard([["Doctor", "Patient"]])
       .resize()
       .oneTime(),

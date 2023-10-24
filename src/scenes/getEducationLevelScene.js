@@ -9,14 +9,28 @@ const BaseScene = require("telegraf/scenes/base");
 const getEducationLevelScene = new BaseScene("getEducationLevel");
 
 getEducationLevelScene.enter((ctx) => {
-  ctx.reply("Please select your education level:", {
+  const language = ctx.session.language;
+
+  if (language == "english") {
+    ctx.i18n.locale("en");
+  } else if (language == "amharic") {
+    ctx.i18n.locale("am");
+  } else if (language == "oromifa") {
+    ctx.i18n.locale("or");
+  } else if (language == "tigrgna") {
+    ctx.i18n.locale("tr");
+  } else {
+    ctx.i18n.locale("en");
+  }
+
+  ctx.reply(ctx.i18n.t("Please select your education level:"), {
     reply_markup: Markup.keyboard([
-      ["I can write and read"],
-      ["High school graduate"],
-      ["Bachelor's degree"],
-      ["Master's degree"],
-      ["Doctorate"],
-      ["Other"],
+      [ctx.i18n.t("I can write and read")],
+      [ctx.i18n.t("High school graduate")],
+      [ctx.i18n.t("Bachelor's degree")],
+      [ctx.i18n.t("Master's degree")],
+      [ctx.i18n.t("Doctorate")],
+      [ctx.i18n.t("Other")],
     ])
       .resize()
       .oneTime(),
@@ -30,7 +44,6 @@ getEducationLevelScene.hears(/^(.*)$/, async (ctx) => {
   ctx.session.educationLevel = educationLevel;
 
   // Reply with a confirmation message
-  await ctx.reply(`Your education level is ${educationLevel}.`);
 
   ctx.session.educationLevel = educationLevel;
 

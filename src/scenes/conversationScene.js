@@ -7,8 +7,23 @@ const BaseScene = require("telegraf/scenes/base");
 // const redis = new Redis(process.env.REDIS_HOST, process.env.REDIS_PORT);
 
 const conversationScene = new BaseScene("conversation");
+const setLan=(ctx)=>{
+  const language = ctx.session.language;
 
+  if (language == "english") {
+    ctx.i18n.locale("en");
+  } else if (language == "amharic") {
+    ctx.i18n.locale("am");
+  } else if (language == "oromifa") {
+    ctx.i18n.locale("or");
+  } else if (language == "tigrgna") {
+    ctx.i18n.locale("tr");
+  } else {
+    ctx.i18n.locale("en");
+  }
+}
 conversationScene.hears("Finish", async (ctx) => {
+  setLan(ctx)
   ctx.reply(
     "Thank you for using Ask Saba, you can ask another question or go back to the main menu",
     {
@@ -27,11 +42,14 @@ conversationScene.hears("Finish", async (ctx) => {
     );
     ctx.session.doctor.telegramId = -1;
   }
-  ctx.scene.enter("getQuestionCategory");
+  ctx.scene.leave("conversation");
+return  ctx.scene.enter("getQuestionCategory");
 
 });
 
 conversationScene.hears("Ask another question", async (ctx) => {
+  setLan(ctx)
+
   ctx.reply(
     "What is your question about? \n\nFor example: Menstruation/Your period" +
       `\n\nData already entered:\nAge: ${ctx.session.age};\nEducation level: ${ctx.session.educationLavel};` +
@@ -75,11 +93,13 @@ conversationScene.hears("⬅️ To Main Menu", async (ctx) => {
 });
 
 conversationScene.on("text", async (ctx) => {
+  setLan(ctx)
+
   console.log(ctx.session.doctor);
   if (ctx.session.doctor) {
     ctx.telegram.sendMessage(
       ctx.session.doctor.telegramId,
-      `New message from your client:\n\n${ctx.message.text}`
+      ctx.i18n.t('New message from your client:')+'\n\n'+ctx.message.text
     );
   } else {
     axios
@@ -92,20 +112,19 @@ conversationScene.on("text", async (ctx) => {
               status: "Busy",
             })
             .then((response) => {
-              console.log("text back");
               console.log(response.telegramId);
               ctx.telegram.sendMessage(
                 response.telegramId,
-                `New message from your client:\n\n${ctx.message.text}`
+                ctx.i18n.t('New message from your client:') +' '+'\n\n' + ctx.message.text
               );
             })
             .catch((error) => {
-              ctx.reply(`Sorry something went wrong try again`);
+              ctx.reply(ctx.i18n.t(`Sorry something went wrong try again`));
               // Handle any errors that occurred during the request
               console.error("Error:", error.message);
             });
         } else {
-          ctx.reply(`We'll get back to you with answers in a while.`);
+          ctx.reply(ctx.i18n.t(`We'll get back to you with answers in a while.`));
           axios
             .post(` http://5.75.155.116:8000/v1/questions`, {
               question: ctx.session.question,
@@ -121,19 +140,19 @@ conversationScene.on("text", async (ctx) => {
               console.log(response.data);
             })
             .catch((error) => {
-              ctx.reply(`Sorry something went wrong try again`);
+              ctx.reply(ctx.i18n.t(`Sorry something went wrong try again`));
               // Handle any errors that occurred during the request
               console.error("Error:", error.message);
             });
         }
       })
       .catch((error) => {
-        ctx.reply(`Sorry something went wrong try again`);
+        ctx.reply(ctx.i18n.t(`Sorry something went wrong try again`));
         // Handle any errors that occurred during the request
         console.error("Error:", error.message);
       });
   }
-  ctx.reply("Your message has been sent to the doctor", {
+  ctx.reply(ctx.i18n.t("Your message has been sent to the Consultant"), {
     reply_markup: {
       keyboard: [["Finish"]],
       resize_keyboard: true,
