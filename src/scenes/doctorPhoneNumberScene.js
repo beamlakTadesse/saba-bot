@@ -124,7 +124,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
         .get(`${apiUrl}${path}`)
         .then((response) => {
           ctx.reply(
-            ``,
+            `Wollcome ${ctx.session.doctorName} would like to profile?`,
             {
               reply_markup: {
                 keyboard: [["Yes"], ["No"]],

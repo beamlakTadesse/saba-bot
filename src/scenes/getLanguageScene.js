@@ -8,20 +8,20 @@ const getLanguageScene = new BaseScene("getLanguage");
 
 getLanguageScene.enter((ctx) => {
   ctx.reply("Please select your preferred language:", {
-    reply_markup: Markup.keyboard([["English", "Amharic","Oromifa","Tigrgna"]])
+    reply_markup: Markup.keyboard([["English", "Amharic","Afaan Oromo","Tigrgna"]])
       .resize()
       .oneTime(),
   });
 });
 
-getLanguageScene.hears(/^(english|amharic|oromifa|tigrgna)$/i, async (ctx) => {
+getLanguageScene.hears(/^(english|amharic|afaan oromo|tigrgna)$/i, async (ctx) => {
   const language = ctx.match[1].toLowerCase();
   if(language=="english"){
     ctx.i18n.locale('en');
   }
   else if(language=="amharic"){
     ctx.i18n.locale('am');
-  }else if(language=="oromifa"){
+  }else if(language=="Afaan Oromo"){
     ctx.i18n.locale('or');
   }
   else if(language=="tigrgna"){
