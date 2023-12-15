@@ -42,7 +42,7 @@ doctorPhoneNumberScene.hears("Yes", async (ctx) => {
   axios
     .patch(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
     .then((response) => {
-      ctx.reply(`Wellcome doctor ${response.data.name}`);
+      ctx.reply(`Welcome doctor ${response.data.name}`);
       ctx.scene.enter("doctorListening");
     })
     .catch((error) => {
@@ -68,7 +68,7 @@ doctorPhoneNumberScene.hears("No", async (ctx) => {
   axios
     .patch(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
     .then((response) => {
-      ctx.reply(`Wellcome doctor ${response.data.name}`);
+      ctx.reply(`Welcome doctor ${response.data.name}`);
       ctx.scene.enter("doctorListening");
     })
     .catch((error) => {
@@ -87,7 +87,7 @@ async function saveDoctorDetails(ctx) {
   if (existingDoctor) {
     // Doctor with the same key already exists
     await ctx.reply(
-      "Wellcome Doctor. Do you want to update your profile?",
+      "Welcome Doctor. Do you want to update your profile?",
       {
         reply_markup: Markup.keyboard([["Yes", "No"]])
           .resize()
@@ -124,7 +124,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
         .get(`${apiUrl}${path}`)
         .then((response) => {
           ctx.reply(
-            `Wollcome ${ctx.session.doctorName} would like to update your profile?`,
+            `Welcome ${ctx.session.doctorName} would like to update your profile?`,
             {
               reply_markup: {
                 keyboard: [["Yes"], ["No"]],
@@ -136,7 +136,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
         })
         .catch((error) => {
        
-              ctx.reply(`Sorry you have to be registerd member to access this bot as a doctor.`);
+              ctx.reply(`Sorry you have to be registerd member to access this bot as a doctor. To register as a doctor contact this number +251905236095.`);
               // Handle any errors that occurred during the request
               console.error("Error:", error.message);
           

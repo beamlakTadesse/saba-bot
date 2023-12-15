@@ -7,7 +7,7 @@ const BaseScene = require("telegraf/scenes/base");
 const getAgeScene = new BaseScene("getAge");
 
 getAgeScene.enter((ctx) => {
-  ctx.reply("Please enter your age:");
+  ctx.reply( ctx.i18n.t("Please enter your age:"));
 });
 
 getAgeScene.on("text", async (ctx) => {
@@ -15,7 +15,7 @@ getAgeScene.on("text", async (ctx) => {
 
   // Validate the age
   if (isNaN(age) || age <= 0 || age >= 150) {
-    ctx.reply("Please enter a valid age.");
+    ctx.reply(ctx.i18n.t("Please enter a valid age."));
     return;
   }
 
@@ -23,7 +23,7 @@ getAgeScene.on("text", async (ctx) => {
   ctx.session.age = age;
 
   // move to getLanguageScene
-  await ctx.scene.enter("getLanguage");
+  await ctx.scene.enter("sex");
 
   // Add any additional logic or transition to another scene if needed
 });

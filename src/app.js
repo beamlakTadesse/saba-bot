@@ -62,12 +62,8 @@ stage.register(
 // Command handler for /start
 bot.start(async (ctx) => {
   // Check if the user has already provided contact and role
-  await ctx.reply(`Hello! I'm Ask Saba Bot, your connection to experienced doctors who are ready to answer your health questions. We're here to provide you with reliable information and guidance on health topics.
-
-  Please keep in mind that while our doctors can offer valuable insights, they can't diagnose or prescribe treatments through text. For urgent or serious health issues, consult a healthcare provider in person.
-  
-  Feel free to ask your health-related questions, and I'll connect you with a doctor who can assist you. Let's get started on your path to better health! Just type your question or topic, and I'll connect you with a doctor who can help. 😊👩‍⚕️👨‍⚕️ `);
-  const phoneNumber = ctx.session.phoneNumber;
+  await ctx.reply(`🌟 Welcome to Ask Saba bot!\nPlease let me know your language preference so I can make our chat extra delightful for you! 🌐✨`)
+const phoneNumber = ctx.session.phoneNumber;
   const role = ctx.session.role;
 
   // console.log(phoneNumber, role);
@@ -77,7 +73,7 @@ bot.start(async (ctx) => {
     // Add Doctor or Patient logic here
   } else {
     // Start the contact scene to collect user's contact information
-    await ctx.scene.enter("role");
+    await ctx.scene.enter("getLanguage");
   }
 });
 bot.catch((err) => {

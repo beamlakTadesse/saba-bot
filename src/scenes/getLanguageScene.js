@@ -7,7 +7,7 @@ const BaseScene = require("telegraf/scenes/base");
 const getLanguageScene = new BaseScene("getLanguage");
 
 getLanguageScene.enter((ctx) => {
-  ctx.reply("Please select your preferred language:", {
+  ctx.reply("-", {
     reply_markup: Markup.keyboard([["English", "Amharic","Afaan Oromo","Tigrgna"]])
       .resize()
       .oneTime(),
@@ -29,12 +29,10 @@ getLanguageScene.hears(/^(english|amharic|afaan oromo|tigrgna)$/i, async (ctx) =
   }else{
     ctx.i18n.locale('en');
   }
-
   // Save the language in the session
   ctx.session.language = language;
-
   // move to getEducationLevelScene
-  await ctx.scene.enter("sex");
+  await ctx.scene.enter("role");
 });
 
 module.exports = getLanguageScene;

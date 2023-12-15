@@ -108,7 +108,7 @@ doctorListening.on("text", async (ctx) => {
     }
   }
 
-  ctx.reply("Your message has been sent to the Consultant", {
+  ctx.reply("Your message has been sent to the patient", {
     reply_markup: {
       keyboard: [["Finish"]],
       resize_keyboard: true,

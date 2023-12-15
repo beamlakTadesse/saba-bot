@@ -1,5 +1,5 @@
 {
-  "AreyouaDoctororaPatient?": "Ati hakiima moo dhukubsataadha?",
+  "Are you a Doctor or a  Patient?": "Ati hakiima moo dhukubsataadha?",
   "I can write and read": "Barreesuu fi dubbisuu nan danda'a",
   "High school graduate": "Barnoota sadarkaa lammaffaa xumureen jira",
   "Bachelor's degree": "Degree Jalqabaa",
@@ -36,5 +36,8 @@
   "Male": "Dhiira",
   "You can ask your question now": "Gaaffii keessan amma gaafachuu dandeessu",
   "Gaaffii haaraa maamila odeeffannoo qabu irraa:": "Gaaffii haaraa maamila odeeffannoo qabu irraa:",
-  "And the question is": "Gaaffiin jiru immoo"
+  "And the question is": "Gaaffiin jiru immoo",
+  "intro":"Akkam! Ani Ask Saba Bot, walitti dhufeenya keessan hakiimota muuxannoo qaban kanneen gaaffii fayyaa keessaniif deebii kennuudhaaf qophaa'an waliin. Mata dureewwan fayyaa irratti odeeffannoo fi qajeelfama amanamaa ta'e isiniif kennuudhaaf as jirra. Maaloo yaada keessa galchaa, hakiimonni keenya hubannoo gatii guddaa qabu kennuu kan danda’an ta’us, karaa barreeffamaatiin yaala adda baasuu ykn ajajuu akka hin dandeenye. Dhimmoota fayyaa hatattamaa ykn ciccimoo ta’aniif, ogeessa fayyaa qaamaan mariisisaa. Gaaffii fayyaa wajjin walqabatu bilisaan gaafadhaa, doktora isin gargaaruu danda'u waliin isin wal qunnamsiisa. Daandii fayyaa fooyya'aa keessanitti haa jalqabnu! Gaaffii ykn mata duree kee qofa barreessi, doktora gargaaruu danda'u waliin si wal qunnamsiisa. 😊👩‍⚕️👨‍⚕️"
+,"Please enter your age:":"Mee umrii keessan galchaa:",
+"Please enter a valid age.":"Maaloo umurii sirrii galchaa."
 }

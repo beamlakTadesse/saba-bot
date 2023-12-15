@@ -7,6 +7,8 @@ const BaseScene = require("telegraf/scenes/base");
 const roleScene = new BaseScene("role");
 
 roleScene.enter((ctx) => {
+ctx.reply(ctx.i18n.t("intro"))
+
   ctx.reply(ctx.i18n.t("Are you a Doctor or a Patient?"), {
     reply_markup: Markup.keyboard([["Doctor", "Patient"]])
       .resize()
@@ -16,6 +18,7 @@ roleScene.enter((ctx) => {
 
 roleScene.hears(/^(doctor|patient)$/i, async (ctx) => {
   const role = ctx.match[1].toLowerCase();
+
   ctx.session.role = role;
   if (role === "patient") {
     // Transition to the getNameScene

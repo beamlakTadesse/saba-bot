@@ -45,6 +45,10 @@
     "For example: Menstruation/Your period":"For example: Menstruation/Your period",
     "Data already entered:":"Data already entered:"
   ,"Female":"Female",
-"Male":"Male"
+"Male":"Male",
+"intro":"Hello! I'm Ask Saba Bot, your connection to experienced doctors who are ready to answer your health questions. We're here to provide you with reliable information and guidance on health topics. Please keep in mind that while our doctors can offer valuable insights, they can't diagnose or prescribe treatments through text. For urgent or serious health issues, consult a healthcare provider in person. Feel free to ask your health-related questions, and I'll connect you with a doctor who can assist you. Let's get started on your path to better health! Just type your question or topic, and I'll connect you with a doctor who can help. 😊👩‍⚕️👨‍⚕️",
+"Please enter your age:":"Please enter your age:",
+"Please enter a valid age.":"Please enter a valid age."
+
 
 }
