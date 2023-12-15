@@ -32,7 +32,7 @@
   "Language:": "ቋንቋ:",
   "With a question about": "ምስ ሕቶ ብዛዕባ…",
   "And the question is": "እቲ ሕቶ ድማ፤",
-  "New message from your Consultant": "ሓድሽ መልእኽቲ ካብ ኣማኻሪኹም፤",
+  "New message from your consultant": "ሓድሽ መልእኽቲ ካብ ኣማኻሪኹም፤",
   "Your message has been sent to the Consultant": "መልእኽትኹም ናብ ኣማኻሪ ተላኢኹ ኣሎ።",
   "We'll get back to you with answers in a while.": "ደሓን ድሕሪ ቁሩብ ግዜ መልሲ ሒዘ ክምለሰልኩም።",
   "Please select your education level:": "በጃኹም ደረጃ ትምህርትኹም ምረጹ፤",
@@ -49,5 +49,6 @@
   "intro":"ሰላም! ኣነ Ask Saba Bot እየ፡ ምስቶም ንሕቶታት ጥዕናኹም ክምልሱ ድሉዋት ዝኾኑ ምኩራት ሓካይም ዘለኩም ርክብ። ኣብ ኣርእስታት ጥዕና ዘተኣማምን ሓበሬታን መምርሕን ክንህበኩም ኢና ኣብዚ ዘለና። ሓካይምና ክቡር ርድኢት ክህቡ ይኽእሉ እኳ እንተኾኑ፡ ብጽሑፍ ኣቢሎም ሕክምናታት ክምርምሩ ወይ ክእዝዙ ከምዘይክእሉ በጃኹም ኣብ ግምት ኣእትውዎ። ንህጹጽ ወይ ከቢድ ናይ ጥዕና ጉዳያት፡ ብኣካል ምስ ወሃቢ ክንክን ጥዕና ተወከስ። ምስ ጥዕና ዝተኣሳሰሩ ሕቶታትኩም ክትሓቱ ናጻ ትኾኑ፡ ምስ ክሕግዘኩም ዝኽእል ሓኪም ድማ ከራኽበኩም እየ። ናብ ዝሓሸ ጥዕና ዝወስድ መንገዲ ንጀምር! ሕቶኻ ወይ ኣርእስትኻ ጥራይ ጽሓፍ፡ ምስ ክሕግዘካ ዝኽእል ሓኪም ከራኽበካ እየ። 😊👩‍⚕️👨‍⚕️",
   "Please enter your age:":"ዕድሜኹም ኣእትዉ፤",
   "Please enter a valid age.":"በጃኹም ግቡእ ዕድመ ኣእትዉ።"
-
+ , "New message from your consultant:":"ሓድሽ መልእኽቲ ካብ ኣማኻሪኻ:",
+ "New question from a client with information:":"ሓድሽ ሕቶ ካብ ሓደ ዓሚል ምስ ሓበሬታ:"
 }

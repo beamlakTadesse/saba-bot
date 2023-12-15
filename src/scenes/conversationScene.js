@@ -14,7 +14,7 @@ const setLan=(ctx)=>{
     ctx.i18n.locale("en");
   } else if (language == "amharic") {
     ctx.i18n.locale("am");
-  } else if (language == "oromifa") {
+  } else if (language == "afaan oromo") {
     ctx.i18n.locale("or");
   } else if (language == "tigrgna") {
     ctx.i18n.locale("tr");
@@ -25,7 +25,7 @@ const setLan=(ctx)=>{
 conversationScene.hears("Finish", async (ctx) => {
   setLan(ctx)
   ctx.reply(
-    "Thank you for using Ask Saba, you can ask another question or go back to the main menu",
+    ctx.i18n.t(  "Thank you for using Ask Saba, you can ask another question or go back to the main menu"),
     {
       reply_markup: {
         keyboard: [["Ask another question"], ["⬅️ To Main Menu"], ["Finish"]],
@@ -41,6 +41,14 @@ conversationScene.hears("Finish", async (ctx) => {
       "The client has ended the conversation, you can now answer another question by clicking on finish"
     );
     ctx.session.doctor.telegramId = -1;
+    axios
+    .patch(
+      ` http://5.75.155.116:8000/v1/doctors/${ctx.session.doctor.phone}`,
+      {
+        status: "Active",
+        patientId: -1,
+      }
+    )
   }
   ctx.scene.leave("conversation");
 return  ctx.scene.enter("getQuestionCategory");
@@ -99,7 +107,7 @@ conversationScene.on("text", async (ctx) => {
   if (ctx.session.doctor) {
     ctx.telegram.sendMessage(
       ctx.session.doctor.telegramId,
-      ctx.i18n.t('New message from your client:')+'\n\n'+ctx.message.text
+      ctx.i18n.t('New message from your consultant:')+'\n\n'+ctx.message.text
     );
   } else {
     axios

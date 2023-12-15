@@ -13,7 +13,7 @@ const setLan=(ctx)=>{
     ctx.i18n.locale("en");
   } else if (language == "amharic") {
     ctx.i18n.locale("am");
-  } else if (language == "oromifa") {
+  } else if (language == "afaan oromo") {
     ctx.i18n.locale("or");
   } else if (language == "tigrgna") {
     ctx.i18n.locale("tr");

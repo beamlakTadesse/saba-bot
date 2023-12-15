@@ -13,7 +13,7 @@ const setLan=(ctx)=>{
     ctx.i18n.locale("en");
   } else if (language == "amharic") {
     ctx.i18n.locale("am");
-  } else if (language == "oromifa") {
+  } else if (language == "afaan oromo") {
     ctx.i18n.locale("or");
   } else if (language == "tigrgna") {
     ctx.i18n.locale("tr");
@@ -24,7 +24,7 @@ const setLan=(ctx)=>{
 getQuestion.hears("Back", async (ctx) => {
   ctx.reply(
     "What is your question about? \n\nFor example: Menstruation/Your period" +
-      `\n\nData already entered:\nAge: ${ctx.session.age};\nEducation level: ${ctx.session.educationLevel};` +
+      `\n\nData already entered:\nAge: ${ctx.session.age};`+`\nEducation level: ${ctx.session.educationLevel};` +
       `\nSex: ${ctx.session.sex};\nLanguage: ${ctx.session.language}`,
     {
       reply_markup: {
@@ -93,40 +93,70 @@ getQuestion.on("text", async (ctx) => {
     )
     .then((response) => {
       let doctor = response.data.results[0];
-
+   console.log(doctor)
       if (doctor) {
+        try{
+          ctx.telegram.sendMessage(
+            doctor.telegramId,
+            ctx.i18n.t("New question from a client with information:") +' '+
+              "\n" +
+              ctx.i18n.t("Age:") +" "+
+              ctx.session.age +
+              ";\n" +
+              ctx.i18n.t("Sex:") +" "+
+              ctx.session.sex +
+              ";\n" +
+              ctx.i18n.t("Education level:") +' ' +
+              ctx.session.educationLevel +
+              ";\n" +
+              ctx.i18n.t("Language:") +" " +
+              ctx.session.language +
+              ";\n" +
+              ctx.i18n.t("With a question about") +" "+
+              ctx.session.questionCat +
+              ";\n\n" +
+              ctx.i18n.t("And the question is") +" "+
+              ctx.session.question +
+              ";\n\n"
+          );
+        }catch(e){
+          doctor= response.data.results[1];
+          ctx.telegram.sendMessage(
+            doctor.telegramId,
+            ctx.i18n.t("New question from a client with information:") +' '+
+              "\n" +
+              ctx.i18n.t("Age:") +" "+
+              ctx.session.age +
+              ";\n" +
+              ctx.i18n.t("Sex:") +" "+
+              ctx.session.sex +
+              ";\n" +
+              ctx.i18n.t("Education level:") +' ' +
+              ctx.session.educationLevel +
+              ";\n" +
+              ctx.i18n.t("Language:") +" " +
+              ctx.session.language +
+              ";\n" +
+              ctx.i18n.t("With a question about") +" "+
+              ctx.session.questionCat +
+              ";\n\n" +
+              ctx.i18n.t("And the question is") +" "+
+              ctx.session.question +
+              ";\n\n"
+          );
+        }
         axios
           .patch(` http://5.75.155.116:8000/v1/doctors/${doctor.phone}`, {
             status: "Busy",
             patientId: ctx.from.id,
           })
-          .then((response) => {
+          .then((res) => {
+
             ctx.session.doctor = doctor;
             doctor.patientId = ctx.from.id;
             ctx.session.patientId = ctx.from.id;
-            ctx.telegram.sendMessage(
-              doctor.telegramId,
-              ctx.i18n.t("New question from a client with information:") +' '+
-                "\n" +
-                ctx.i18n.t("Age:") +" "+
-                ctx.session.age +
-                ";\n" +
-                ctx.i18n.t("Sex:") +" "+
-                ctx.session.sex +
-                ";\n" +
-                ctx.i18n.t("Education level:") +' ' +
-                ctx.session.educationLevel +
-                ";\n" +
-                ctx.i18n.t("Language:") +" " +
-                ctx.session.language +
-                ";\n" +
-                ctx.i18n.t("With a question about") +" "+
-                ctx.session.questionCat +
-                ";\n\n" +
-                ctx.i18n.t("And the question is") +" "+
-                ctx.session.question +
-                ";\n\n"
-            );
+           
+           
           })
           .catch((error) => {
             ctx.reply(ctx.i18n.t(`Sorry something went wrong try again`));
@@ -172,7 +202,7 @@ getQuestion.on("text", async (ctx) => {
             // Handle any errors that occurred during the request
             console.error("Error posting question:", error.message);
           });
-        ctx.reply(ctx.i18n.t(`We'll get back to you with answers in a while.`));
+        ctx.reply(ctx.i18n.t(`We'll get back to you with answers in a while`));
       }
     })
     .catch((error) => {

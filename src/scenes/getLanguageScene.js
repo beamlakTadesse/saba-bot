@@ -21,7 +21,7 @@ getLanguageScene.hears(/^(english|amharic|afaan oromo|tigrgna)$/i, async (ctx) =
   }
   else if(language=="amharic"){
     ctx.i18n.locale('am');
-  }else if(language=="Afaan Oromo"){
+  }else if(language=="afaan oromo"){
     ctx.i18n.locale('or');
   }
   else if(language=="tigrgna"){
