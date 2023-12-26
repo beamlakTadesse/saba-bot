@@ -69,15 +69,15 @@ getQuestion.hears(/^(.*)$/, async (ctx) => {
 
   ctx.session.questionCat = questionCat;
   ctx.reply(ctx.i18n.t("You can ask your question now"), {
-    reply_markup: {
-      keyboard: [
-        [ctx.i18n.t("Back")],
-        [ctx.i18n.t("Erase everything")],
-        [ctx.i18n.t("To Main Menu")],
-      ],
-      resize_keyboard: true,
-      one_time_keyboard: true,
-    },
+    // reply_markup: {
+    //   keyboard: [
+    //     [ctx.i18n.t("Back")],
+    //     [ctx.i18n.t("Erase everything")],
+    //     [ctx.i18n.t("To Main Menu")],
+    //   ],
+    //   resize_keyboard: true,
+    //   one_time_keyboard: true,
+    // },
   });
   await ctx.scene.leave("getQuestionCategory");
   ctx.scene.enter("getQuestion");
