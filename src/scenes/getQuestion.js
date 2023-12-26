@@ -97,7 +97,7 @@ getQuestion.on("text", async (ctx) => {
       if (doctor) {
         try{
           ctx.telegram.sendMessage(
-            doctor.telegramId,
+           "340857074",
             ctx.i18n.t("New question from a client with information:") +' '+
               "\n" +
               ctx.i18n.t("Age:") +" "+
