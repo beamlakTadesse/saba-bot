@@ -11,7 +11,7 @@ doctorListening.enter(async (ctx) => {
   ctx.reply("Waiting for a question...");
   axios
     .get(
-      ` http://5.75.155.116:8000/v1/doctors?telegramId=${ctx.session.doctorId}`
+      ` http://51.20.255.208:3000/v1/doctors?telegramId=${ctx.session.doctorId}`
     )
     .then((response) => {
       console.log(response.data.results[4]);
@@ -36,7 +36,7 @@ doctorListening.hears("Finish", async (ctx) => {
   console.log(ctx.session);
   axios
     .patch(
-      ` http://5.75.155.116:8000/v1/doctors/${ctx.session.doctorPhoneNumber}`,
+      ` http://51.20.255.208:3000/v1/doctors/${ctx.session.doctorPhoneNumber}`,
       {
         status: "Active",
         patientId: -1,
@@ -44,7 +44,7 @@ doctorListening.hears("Finish", async (ctx) => {
     )
     .then((response) => {
       axios
-        .get(" http://5.75.155.116:8000/v1/questions?sent=false")
+        .get(" http://51.20.255.208:3000/v1/questions?sent=false")
         .then((res) => {
           console.log(res.results)
           if(res.results){
@@ -63,7 +63,7 @@ doctorListening.hears("Finish", async (ctx) => {
             );
             axios
               .patch(
-                ` http://5.75.155.116:8000/v1/questions/${question.id}`,
+                ` http://51.20.255.208:3000/v1/questions/${question.id}`,
                 {
                   sent: true,
                 }

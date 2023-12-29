@@ -4,7 +4,7 @@ const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
 const axios = require("axios");
 const doctorPhoneNumberScene = new BaseScene("doctorPhoneNumber");
-const apiUrl = " http://5.75.155.116:8000/v1/doctors";
+const apiUrl = " http://51.20.255.208:3000/v1/doctors";
 doctorPhoneNumberScene.enter((ctx) => {
   // ctx.reply("Please enter the doctor's phone number:");
   ctx.reply(

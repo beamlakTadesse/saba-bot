@@ -3,7 +3,7 @@
 const { default: axios } = require("axios");
 const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
-const apiUrl = " http://5.75.155.116:8000/v1/doctors";
+const apiUrl = " http://51.20.255.208:3000/v1/doctors";
 // Scene for collecting user's age
 const getQuestion = new BaseScene("getQuestion");
 const setLan=(ctx)=>{
@@ -89,7 +89,7 @@ getQuestion.on("text", async (ctx) => {
 
   axios
     .get(
-      ` http://5.75.155.116:8000/v1/doctors?alive=true&status=Active&language=${ctx.session.language}`
+      ` http://51.20.255.208:3000/v1/doctors?alive=true&status=Active&language=${ctx.session.language}`
     )
     .then((response) => {
       let doctor = response.data.results[0];
@@ -146,7 +146,7 @@ getQuestion.on("text", async (ctx) => {
           );
         }
         axios
-          .patch(` http://5.75.155.116:8000/v1/doctors/${doctor.phone}`, {
+          .patch(` http://51.20.255.208:3000/v1/doctors/${doctor.phone}`, {
             status: "Busy",
             patientId: ctx.from.id,
           })
@@ -164,7 +164,7 @@ getQuestion.on("text", async (ctx) => {
             console.error("Error updating doctor status:", error.message);
           });
         axios
-          .post(` http://5.75.155.116:8000/v1/questions`, {
+          .post(` http://51.20.255.208:3000/v1/questions`, {
             question: ctx.session.question,
             questionCategory: ctx.session.questionCat,
             sex: ctx.session.sex,
@@ -184,7 +184,7 @@ getQuestion.on("text", async (ctx) => {
         ctx.reply(ctx.i18n.t("A doctor will be with you in a moment"));
       } else {
         axios
-          .post(` http://5.75.155.116:8000/v1/questions`, {
+          .post(` http://51.20.255.208:3000/v1/questions`, {
             question: ctx.session.question,
             questionCategory: ctx.session.questionCat,
             sex: ctx.session.sex,

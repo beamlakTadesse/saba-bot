@@ -43,7 +43,7 @@ conversationScene.hears("Finish", async (ctx) => {
     ctx.session.doctor.telegramId = -1;
     axios
     .patch(
-      ` http://5.75.155.116:8000/v1/doctors/${ctx.session.doctor.phone}`,
+      ` http://51.20.255.208:3000/v1/doctors/${ctx.session.doctor.phone}`,
       {
         status: "Active",
         patientId: -1,
@@ -111,12 +111,12 @@ conversationScene.on("text", async (ctx) => {
     );
   } else {
     axios
-      .get(` http://5.75.155.116:8000/v1/doctors?alive=true&status=Active`)
+      .get(` http://51.20.255.208:3000/v1/doctors?alive=true&status=Active`)
       .then((response) => {
         let doctor = response.data.results[0];
         if (doctor) {
           axios
-            .patch(` http://5.75.155.116:8000/v1/doctors/${doctor.phone}`, {
+            .patch(` http://51.20.255.208:3000/v1/doctors/${doctor.phone}`, {
               status: "Busy",
             })
             .then((response) => {
@@ -134,7 +134,7 @@ conversationScene.on("text", async (ctx) => {
         } else {
           ctx.reply(ctx.i18n.t(`We'll get back to you with answers in a while.`));
           axios
-            .post(` http://5.75.155.116:8000/v1/questions`, {
+            .post(` http://51.20.255.208:3000/v1/questions`, {
               question: ctx.session.question,
               questionCategory: ctx.session.questionCat,
               sex: ctx.session.sex,
