@@ -33,7 +33,7 @@ getAgeScene.on("text", async (ctx) => {
 
   // Validate the age
   if (isNaN(age) || age <= 0 || age >= 150) {
-    ctx.reply(ctx.i18n.t("Please enter a valid age"));
+    ctx.reply(ctx.i18n.t("Please enter a valid age."));
     return;
   }
 
