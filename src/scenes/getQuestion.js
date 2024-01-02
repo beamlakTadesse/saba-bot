@@ -69,6 +69,9 @@ getQuestion.hears(["To Main Menu"], async (ctx) => {
 });
 
 getQuestion.on("text", async (ctx) => {
+  if( "/start"===ctx.message.text){
+    await ctx.scene.leave("role");
+  }
   ctx.session.question = ctx.message.text;
   ctx.session.patientId = ctx.from.id;
   console.log("patient id log.....", ctx.session.patientId);

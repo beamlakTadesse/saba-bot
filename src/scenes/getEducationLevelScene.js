@@ -39,7 +39,9 @@ getEducationLevelScene.enter((ctx) => {
 
 getEducationLevelScene.hears(/^(.*)$/, async (ctx) => {
   const educationLevel = ctx.match[1];
-
+  if( "/start"===educationLevel){
+    await ctx.scene.leave("role");
+  }
   // Save the education level in the session
   ctx.session.educationLevel = educationLevel;
 

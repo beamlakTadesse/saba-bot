@@ -102,7 +102,9 @@ conversationScene.hears("⬅️ To Main Menu", async (ctx) => {
 
 conversationScene.on("text", async (ctx) => {
   setLan(ctx)
-
+  if( "/start"===ctx.message.text){
+    await ctx.scene.leave("role");
+  }
   console.log(ctx.session.doctor);
   if (ctx.session.doctor) {
     ctx.telegram.sendMessage(

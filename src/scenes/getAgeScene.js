@@ -28,6 +28,9 @@ getAgeScene.enter((ctx) => {
 });
 
 getAgeScene.on("text", async (ctx) => {
+  if( "/start"===ctx.message.text){
+    await ctx.scene.leave("role");
+  }
   const age = parseInt(ctx.message.text, 10);
   setLan(ctx) 
 

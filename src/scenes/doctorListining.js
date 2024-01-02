@@ -94,7 +94,9 @@ doctorListening.on("text", async (ctx) => {
   //     return;
   //   }
   console.log("doctor");
-
+  if( "/start"===ctx.message.text){
+    await ctx.scene.leave("role");
+  }
   console.log(ctx.session.patientId);
   if (ctx.session.patientId != -1) {
     try {
