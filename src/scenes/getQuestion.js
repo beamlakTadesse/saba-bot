@@ -22,6 +22,7 @@ const setLan=(ctx)=>{
   }
 }
 getQuestion.hears("Back", async (ctx) => {
+
   ctx.reply(
     "What is your question about? \n\nFor example: Menstruation/Your period" +
       `\n\nData already entered:\nAge: ${ctx.session.age};`+`\nEducation level: ${ctx.session.educationLevel};` +
@@ -69,6 +70,8 @@ getQuestion.hears(["To Main Menu"], async (ctx) => {
 });
 
 getQuestion.on("text", async (ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
+
   if( "/start"===ctx.message.text){
     await ctx.scene.leave("role");
   }
@@ -100,7 +103,7 @@ getQuestion.on("text", async (ctx) => {
       if (doctor) {
         try{
           ctx.telegram.sendMessage(
-           "340857074",
+           doctor.telegramId,
             ctx.i18n.t("New question from a client with information:") +' '+
               "\n" +
               ctx.i18n.t("Age:") +" "+
@@ -217,5 +220,7 @@ getQuestion.on("text", async (ctx) => {
   await ctx.scene.leave("getQuestion");
   ctx.scene.enter("conversation");
 });
-
+getQuestion.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = getQuestion;

@@ -9,6 +9,7 @@ const BaseScene = require("telegraf/scenes/base");
 const getEducationLevelScene = new BaseScene("getEducationLevel");
 
 getEducationLevelScene.enter((ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   const language = ctx.session.language;
 
   if (language == "english") {
@@ -73,5 +74,7 @@ getEducationLevelScene.hears(/^(.*)$/, async (ctx) => {
   // leave the scene
   return ctx.scene.enter("getQuestionCategory");
 });
-
+getEducationLevelScene.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = getEducationLevelScene;

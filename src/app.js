@@ -42,6 +42,7 @@ const getQuestionCategoryScene = require("./scenes/getQuestionCategory");
 const getQuestionScene = require("./scenes/getQuestion");
 const doctorListeningScene = require("./scenes/doctorListining");
 const sexScene = require("./scenes/sexScene");
+const changeLanguage = require("./scenes/changeLangScene")
 // Register scenes in the stage
 stage.register(
   contactScene,
@@ -56,7 +57,8 @@ stage.register(
   getQuestionCategoryScene,
   getQuestionScene,
   doctorListeningScene,
-  sexScene
+  sexScene,
+  changeLanguage
 );
 
 // Command handler for /start
@@ -76,6 +78,12 @@ const phoneNumber = ctx.session.phoneNumber;
     await ctx.scene.enter("getLanguage");
   }
 });
+// Command handler
+bot.command('lang', (ctx) => {
+   ctx.scene.enter("changeLanguage");
+ 
+});
+
 bot.catch((err) => {
   console.error("Error:", err);
   // Respond to the user with an error message

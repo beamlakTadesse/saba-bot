@@ -21,6 +21,8 @@ const setLan=(ctx)=>{
   }
 }
 sexScene.enter((ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
+
   setLan(ctx)
   ctx.reply(ctx.i18n.t('Sex:'), {
     reply_markup: Markup.keyboard([[ctx.i18n.t('Female'), ctx.i18n.t('Male')]])
@@ -36,5 +38,7 @@ sexScene.hears(/^(.*)$/, async (ctx) => {
   // Leave the roleScene
    await ctx.scene.enter("getEducationLevel");
 });
-
+sexScene.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = sexScene;

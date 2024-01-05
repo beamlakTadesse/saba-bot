@@ -23,6 +23,7 @@ const setLan=(ctx)=>{
   }
 }
 conversationScene.hears("Finish", async (ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   setLan(ctx)
   ctx.reply(
     ctx.i18n.t(  "Thank you for using Ask Saba, you can ask another question or go back to the main menu"),
@@ -170,5 +171,7 @@ conversationScene.on("text", async (ctx) => {
     },
   });
 });
-
+conversationScene.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = conversationScene;

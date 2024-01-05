@@ -21,7 +21,7 @@ const setLan=(ctx)=>{
   }
 }
 getAgeScene.enter((ctx) => {
-
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   setLan(ctx) 
 
   ctx.reply(ctx.i18n.t("Please enter your age:"));
@@ -48,5 +48,7 @@ getAgeScene.on("text", async (ctx) => {
 
   // Add any additional logic or transition to another scene if needed
 });
-
+getAgeScene.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = getAgeScene;

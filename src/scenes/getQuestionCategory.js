@@ -22,6 +22,8 @@ const setLan=(ctx)=>{
   }
 }
 getQuestion.enter(async (ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
+
   setLan(ctx)
   ctx.reply(
     ctx.i18n.t("What is your question about?") +
@@ -89,6 +91,8 @@ getQuestion.hears(["Erase everything", "/start"], async (ctx) => {
 
   await ctx.scene.leave("role");
 });
-
+getQuestion.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 
 module.exports = getQuestion;

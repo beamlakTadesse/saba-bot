@@ -8,6 +8,7 @@ const contactScene = new BaseScene("contact");
 
 // Scene for collecting user contact information
 contactScene.enter((ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   ctx.reply(
     "Please share your contact so that we can contact you in case of any questions.",
     {
@@ -61,5 +62,7 @@ contactScene.hears("Add Doctor", async (ctx) => {
   // Move to the doctor name scene
   await ctx.scene.enter("doctorName");
 });
-
+contactScene.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = contactScene;

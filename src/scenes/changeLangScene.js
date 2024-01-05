@@ -4,9 +4,9 @@ const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
 
 // Scene for collecting user's preferred language
-const getLanguageScene = new BaseScene("getLanguage");
+const changeLanguageScene = new BaseScene("getLanguage");
 
-getLanguageScene.enter((ctx) => {
+changeLanguageScene.enter((ctx) => {
   ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   
 
@@ -17,7 +17,7 @@ getLanguageScene.enter((ctx) => {
   });
 });
 
-getLanguageScene.hears(/^(english|amharic|afaan oromo|tigrgna)$/i, async (ctx) => {
+changeLanguageScene.hears(/^(english|amharic|afaan oromo|tigrgna)$/i, async (ctx) => {
   const language = ctx.match[1].toLowerCase();
   if(language=="english"){
     ctx.i18n.locale('en');
@@ -35,9 +35,9 @@ getLanguageScene.hears(/^(english|amharic|afaan oromo|tigrgna)$/i, async (ctx) =
   // Save the language in the session
   ctx.session.language = language;
   // move to getEducationLevelScene
-  await ctx.scene.enter("role");
+  ctx.scene.enter(lastScene);
 });
-getLanguageScene.hears("/start", async (ctx) => {
+changeLanguageScene.hears("/start", async (ctx) => {
   await ctx.scene.leave("role");
 });
-module.exports = getLanguageScene;
+module.exports = changeLanguageScene;

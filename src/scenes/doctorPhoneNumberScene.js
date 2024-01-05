@@ -6,6 +6,7 @@ const axios = require("axios");
 const doctorPhoneNumberScene = new BaseScene("doctorPhoneNumber");
 const apiUrl = " http://51.20.255.208:3000/v1/doctors";
 doctorPhoneNumberScene.enter((ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   // ctx.reply("Please enter the doctor's phone number:");
   ctx.reply(
     "Please share your contact so that we can confirm you are a registered doctor.",
@@ -42,6 +43,7 @@ doctorPhoneNumberScene.hears("Yes", async (ctx) => {
   axios
     .patch(apiUrl + `/${ctx.session.doctorPhoneNumber}`, postData)
     .then((response) => {
+
       ctx.reply(`Welcome doctor ${response.data.name}`);
       ctx.scene.enter("doctorListening");
     })
@@ -123,6 +125,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
       axios
         .get(`${apiUrl}${path}`)
         .then((response) => {
+          ctx.session.doctor= response
           ctx.reply(
             `Welcome ${ctx.session.doctorName} would like to update your profile?`,
             {
@@ -146,5 +149,7 @@ doctorPhoneNumberScene.on("contact", async (ctx) => {
     await ctx.reply("Please provide your phone number to continue.");
   }
 });
-
+doctorPhoneNumberScene.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
+});
 module.exports = doctorPhoneNumberScene;

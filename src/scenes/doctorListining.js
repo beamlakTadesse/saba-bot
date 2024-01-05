@@ -8,14 +8,15 @@ const BaseScene = require("telegraf/scenes/base");
 const doctorListening = new BaseScene("doctorListening");
 
 doctorListening.enter(async (ctx) => {
+  ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
   ctx.reply("Waiting for a question...");
   axios
     .get(
-      ` http://51.20.255.208:3000/v1/doctors?telegramId=${ctx.session.doctorId}`
+      ` http://51.20.255.208:3000/v1/doctors/${ctx.session.doctorPhoneNumber}`
     )
     .then((response) => {
-      console.log(response.data.results[4]);
-      ctx.session.patientId = response.data.results[4].patientId;
+      console.log(response)
+      ctx.session.patientId = response.data.patientId;
     })
     .catch((error) => {
       // ctx.reply(`Sorry something went wrong try again`);
@@ -117,5 +118,9 @@ doctorListening.on("text", async (ctx) => {
       one_time_keyboard: true,
     },
   });
+});
+
+doctorListening.hears("/start", async (ctx) => {
+  await ctx.scene.leave("role");
 });
 module.exports = doctorListening;
