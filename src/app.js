@@ -79,10 +79,10 @@ const phoneNumber = ctx.session.phoneNumber;
   }
 });
 // Command handler
-bot.command('lang', (ctx) => {
-   ctx.scene.enter("changeLanguage");
+// bot.command('lang', (ctx) => {
+//    ctx.scene.enter("changeLanguage");
  
-});
+// });
 
 bot.catch((err) => {
   console.error("Error:", err);

@@ -4,7 +4,7 @@ const { Markup } = require("telegraf");
 const BaseScene = require("telegraf/scenes/base");
 
 // Scene for collecting user's preferred language
-const changeLanguageScene = new BaseScene("getLanguage");
+const changeLanguageScene = new BaseScene("changeLanguage");
 
 changeLanguageScene.enter((ctx) => {
   ctx.session.lastScene = ctx.scene.current ? ctx.scene.current.id : null;
